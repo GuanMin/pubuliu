@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .grid-item {
+            width: 200px;
+            margin: 10px;
+        }
+
+        #add {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
+
+    </style>
+</head>
+<body>
+<div class="grid">
+    <button id="add">添加点图片</button>
+    <img class="grid-item" src="images/0.jpg">
+    <img class="grid-item" src="images/1.jpg">
+    <img class="grid-item" src="images/2.jpg">
+    <img class="grid-item" src="images/3.jpg">
+    <img class="grid-item" src="images/4.jpg">
+    <img class="grid-item" src="images/5.jpg">
+    <img class="grid-item" src="images/6.jpg">
+    <img class="grid-item" src="images/7.jpg">
+    <img class="grid-item" src="images/8.jpg">
+    <img class="grid-item" src="images/9.jpg">
+    <img class="grid-item" src="images/10.jpg">
+    <img class="grid-item" src="images/11.jpg">
+    <img class="grid-item" src="images/12.jpg">
+    <img class="grid-item" src="images/13.jpg">
+    <img class="grid-item" src="images/14.jpg">
+    <img class="grid-item" src="images/15.jpg">
+    <img class="grid-item" src="images/16.jpg">
+    <img class="grid-item" src="images/17.jpg">
+    <img class="grid-item" src="images/18.jpg">
+    <img class="grid-item" src="images/19.jpg">
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/masonry.pkgd.min.js"></script>
+
+<script>
+    //    var $parent = $('<div></div>');
+    //    for(var i = 0;i < 20; i++){
+    //        $parent.append('<img src="images/'+i+'.jpg">
+    // ');
+    //    };
+    //    console.log($parent.html());
+
+    var $grid = $('.grid').masonry({
+        itemSelector: '.grid-item',
+        gutter: 10
+    });
+
+    var isLoading = false;
+    $('#add').click(function () {
+        if (isLoading) {
+            return;
+        }
+        isLoading = true;
+        var html = '';
+        for (var i = 0; i < 5; i++) {
+            html += '<img class="grid-item" src="images/' + Math.floor(242 * Math.random()) + '.jpg">';
+        }
+        var $items = $(html);
+        $grid.append($items);
+        var i = 0;
+        $items.load(function () {
+            i++;
+            if (i == 5) {
+                isLoading = false;
+                $grid.masonry('appended', $items);
+            }
+        });
+    });
+</script>
+</body>
+</html>
